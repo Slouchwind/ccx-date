@@ -1,0 +1,8 @@
+{
+    "slouchwind.date.name": "Date",
+    "slouchwind.date.description": "日期相关用法",
+    "slouchwind.date.category": "Date",
+    "slouchwind.date.new": "new Date [VALUE]",
+    "slouchwind.date.parse": "parse date [VALUE]",
+    "slouchwind.date.UTC": "UTC of [VALUE]"
+}

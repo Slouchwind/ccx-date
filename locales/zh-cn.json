@@ -1,0 +1,8 @@
+{
+    "slouchwind.date.name": "Date",
+    "slouchwind.date.description": "日期相关用法",
+    "slouchwind.date.category": "日期",
+    "slouchwind.date.new": "将 [VALUE] 转换为日期",
+    "slouchwind.date.parse": "分割日期 [VALUE]",
+    "slouchwind.date.UTC": "1970年1月1日到 [VALUE] 的毫秒数"
+}
