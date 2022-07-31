@@ -9,13 +9,21 @@ const set = {
     DateSets: (method, date, value) => {
         var d = new Date(date);
         d[`set${method}`](value);
-        return d.toString();
+        return dateToReturnString(d);
     }
 }
 
 const string = {
     MenuItemPrototype: v => { return { messageId: `slouchwind.date.menu.string.${v}`, value: v } },
     DateStrings: (method, date) => new Date(date)[`to${method == 'index' ? '' : method}String`]()
+}
+
+function dateToReturnString(d = new Date()) {
+    switch (api.getSettings("slouchwind.date.return")) {
+        case "ISO": return d.toISOString()
+        case "time": return d.getTime()
+        case "GMT": return d.toString()
+    }
 }
 
 class DateExtension extends Extension {
@@ -25,6 +33,7 @@ class DateExtension extends Extension {
             messageId: 'slouchwind.date.category',
             color: '#56CFBF'
         });
+
         api.addBlock({
             opcode: 'slouchwind.date.new',
             type: type.BlockType.REPORTER,
@@ -37,10 +46,16 @@ class DateExtension extends Extension {
                 }
             },
             function: args => {
-                if (args.VALUE == "") return new Date().toString();
-                else return new Date(args.VALUE).toString();
+                try {
+                    if (args.VALUE == "") return dateToReturnString(new Date());
+                    else return dateToReturnString(new Date(args.VALUE));
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }
         });
+
         api.addBlock({
             opcode: 'slouchwind.date.parse',
             type: type.BlockType.REPORTER,
@@ -52,8 +67,16 @@ class DateExtension extends Extension {
                     default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
                 }
             },
-            function: args => Date.parse(new Date(args.VALUE))
+            function: args => {
+                try {
+                    return Date.parse(new Date(args.VALUE))
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
         });
+
         api.addBlock({
             opcode: 'slouchwind.date.UTC',
             type: type.BlockType.REPORTER,
@@ -66,10 +89,16 @@ class DateExtension extends Extension {
                 }
             },
             function: args => {
-                var split = args.VALUE.split(",");
-                return Date.UTC(split[0] || 2000, split[1] || 0, split[2] || 1, split[3] || 0, split[4] || 0, split[5] || 0, split[6] || 0);
+                try {
+                    var split = args.VALUE.split(",");
+                    return Date.UTC(split[0] || 2000, split[1] || 0, split[2] || 1, split[3] || 0, split[4] || 0, split[5] || 0, split[6] || 0);
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }
         });
+
         var getMethods = ['FullYear', 'Month', 'Date', 'Day', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time'];
         api.addBlock({
             opcode: 'slouchwind.date.get',
@@ -88,8 +117,16 @@ class DateExtension extends Extension {
                     menu: getMethods.map(get.MenuItemPrototype)
                 }
             },
-            function: args => get.DateGets(args.PARAMETER, args.VALUE)
+            function: args => {
+                try {
+                    return get.DateGets(args.PARAMETER, args.VALUE)
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
         });
+
         var setMethods = ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds', 'Milliseconds', 'Time'];
         api.addBlock({
             opcode: 'slouchwind.date.set',
@@ -112,8 +149,16 @@ class DateExtension extends Extension {
                     menu: setMethods.map(set.MenuItemPrototype)
                 }
             },
-            function: args => set.DateSets(args.PARAMETER, args.DATE, args.VALUE)
+            function: args => {
+                try {
+                    return set.DateSets(args.PARAMETER, args.DATE, args.VALUE)
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
         });
+
         var stringMethods = ['Date', 'Time', 'index', 'Locale', 'LocaleDate', 'LocaleTime', 'ISO', 'UTC'];
         api.addBlock({
             opcode: 'slouchwind.date.string',
@@ -132,8 +177,36 @@ class DateExtension extends Extension {
                     menu: stringMethods.map(string.MenuItemPrototype)
                 }
             },
-            function: args => string.DateStrings(args.PARAMETER, args.DATE)
-        })
+            function: args => {
+                try {
+                    return string.DateStrings(args.PARAMETER, args.DATE)
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.date.offset',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.date.offset',
+            categoryId: 'slouchwind.date.category',
+            option: {
+                monitor: true
+            },
+            function: _ => {
+                try {
+                    return new Date().getTimezoneOffset()
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+    }
+    onUninit() {
+        api.removeCategory('slouchwind.date.category')
     }
 }
 

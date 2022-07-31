@@ -1,5 +1,5 @@
 {
-    "slouchwind.date.name": "Date",
+    "slouchwind.date.name": "日期",
     "slouchwind.date.description": "日期相关用法",
     "slouchwind.date.category": "日期",
     "slouchwind.date.new": "将 [VALUE] 转换为日期",
@@ -32,5 +32,10 @@
     "slouchwind.date.menu.string.LocaleDate": "本地时间(日期)",
     "slouchwind.date.menu.string.LocaleTime": "本地时间(时间)",
     "slouchwind.date.menu.string.ISO": "ISO",
-    "slouchwind.date.menu.string.UTC": "世界时"
+    "slouchwind.date.menu.string.UTC": "世界时",
+    "slouchwind.date.offset": "与格林威治时间的时差",
+    "slouchwind.date.settings.return": "返回格式",
+    "message.ISO": "ISO",
+    "message.time": "MS",
+    "message.GMT": "GMT"
 }

@@ -32,5 +32,10 @@
     "slouchwind.date.menu.string.LocaleDate": "Locale(Date)",
     "slouchwind.date.menu.string.LocaleTime": "Locale(Time)",
     "slouchwind.date.menu.string.ISO": "ISO",
-    "slouchwind.date.menu.string.UTC": "UTC"
+    "slouchwind.date.menu.string.UTC": "UTC",
+    "slouchwind.date.offset": "timezone offset",
+    "slouchwind.date.settings.return": "return",
+    "message.ISO": "ISO",
+    "message.time": "MS",
+    "message.GMT": "GMT"
 }
