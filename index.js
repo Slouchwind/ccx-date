@@ -204,6 +204,51 @@ class DateExtension extends Extension {
                 }
             }
         });
+
+        api.addBlock({
+            opcode: 'slouchwind.date.compare',
+            type: type.BlockType.BOOLEAN,
+            messageId: 'slouchwind.date.compare',
+            categoryId: 'slouchwind.date.category',
+            param: {
+                DATE1: {
+                    type: type.ParameterType.STRING,
+                    default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
+                },
+                DATE2: {
+                    type: type.ParameterType.STRING,
+                    default: 'Thu Jan 01 2000 08:00:00 GMT+0800 (中国标准时间)'
+                },
+                SYMBOL: {
+                    type: type.ParameterType.STRING,
+                    default: 'greater',
+                    field: true,
+                    menu: [
+                        'greater',
+                        'less',
+                        'equalAndGreater',
+                        'equalAndLess'
+                    ]
+                        .map(v => { return { messageId: `slouchwind.date.menu.compare.${v}`, value: v } })
+                }
+            },
+            function: args => {
+                try {
+                    var d1 = args.DATE1 === '' ? new Date() : new Date(args.DATE1);
+                    var d2 = args.DATE2 === '' ? new Date() : new Date(args.DATE2);
+                    switch (args.SYMBOL) {
+                        case 'greater': return d1 > d2;
+                        case 'less': return d1 < d2;
+                        case 'equalAndGreater': return (d1 > d2) && (d1 == d2);
+                        case 'equalAndLess': return (d1 < d2) && (d1 == d2);
+
+                        default: return false;
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        })
     }
     onUninit() {
         api.removeCategory('slouchwind.date.category')

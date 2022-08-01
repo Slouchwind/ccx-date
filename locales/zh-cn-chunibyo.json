@@ -37,5 +37,10 @@
     "slouchwind.date.settings.return": "神灵",
     "message.ISO": "ISO",
     "message.time": "MS",
-    "message.GMT": "GMT"
+    "message.GMT": "GMT",
+    "slouchwind.date.compare": "[DATE1] [SYMBOL] [DATE2]?",
+    "slouchwind.date.menu.compare.greater": ">",
+    "slouchwind.date.menu.compare.less": "<",
+    "slouchwind.date.menu.compare.equalAndGreater": "≥",
+    "slouchwind.date.menu.compare.equalAndLess": "≤"
 }
