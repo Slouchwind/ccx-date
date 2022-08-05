@@ -2,10 +2,10 @@
     "slouchwind.date.name": "Date",
     "slouchwind.date.description": "日期相关用法",
     "slouchwind.date.category": "Date",
-    "slouchwind.date.new": "new Date [VALUE]",
+    "slouchwind.date.new": "new Date [DATE]",
     "slouchwind.date.parse": "parse date [VALUE]",
     "slouchwind.date.UTC": "UTC of [VALUE]",
-    "slouchwind.date.get": "get [PARAMETER] of [VALUE]",
+    "slouchwind.date.get": "get [METHOD] of [DATE]",
     "slouchwind.date.menu.get.FullYear": "FullYear",
     "slouchwind.date.menu.get.Month": "Month (0 ~ 11)",
     "slouchwind.date.menu.get.Date": "Date (1 ~ 31)",
@@ -41,6 +41,8 @@
     "slouchwind.date.compare": "[DATE1] [SYMBOL] [DATE2]?",
     "slouchwind.date.menu.compare.greater": ">",
     "slouchwind.date.menu.compare.less": "<",
-    "slouchwind.date.menu.compare.equalAndGreater": "≥",
-    "slouchwind.date.menu.compare.equalAndLess": "≤"
+    "slouchwind.date.menu.compare.equal": "=",
+    "slouchwind.date.menu.compare.equalOrGreater": "≥",
+    "slouchwind.date.menu.compare.equalOrLess": "≤",
+    "slouchwind.date.menu.compare.notEqual": "≠"
 }

@@ -2,10 +2,10 @@
     "slouchwind.date.name": "日期",
     "slouchwind.date.description": "日期相关用法",
     "slouchwind.date.category": "日期",
-    "slouchwind.date.new": "将 [VALUE] 转换为日期",
+    "slouchwind.date.new": "将 [DATE] 转换为日期",
     "slouchwind.date.parse": "返回1970年1月1日午夜到 [VALUE] 的毫秒数",
     "slouchwind.date.UTC": "根据世界时返回1970年1月1日到 [VALUE] 的毫秒数",
-    "slouchwind.date.get": "获取 [VALUE] 中的 [PARAMETER]",
+    "slouchwind.date.get": "获取 [DATE] 中的 [METHOD]",
     "slouchwind.date.menu.get.FullYear": "四位数年份",
     "slouchwind.date.menu.get.Month": "月份 (0 ~ 11)",
     "slouchwind.date.menu.get.Date": "一个月中的某一天 (1 ~ 31)",
@@ -41,6 +41,8 @@
     "slouchwind.date.compare": "[DATE1] [SYMBOL] [DATE2]?",
     "slouchwind.date.menu.compare.greater": ">",
     "slouchwind.date.menu.compare.less": "<",
-    "slouchwind.date.menu.compare.equalAndGreater": "≥",
-    "slouchwind.date.menu.compare.equalAndLess": "≤"
+    "slouchwind.date.menu.compare.equal": "=",
+    "slouchwind.date.menu.compare.equalOrGreater": "≥",
+    "slouchwind.date.menu.compare.equalOrLess": "≤",
+    "slouchwind.date.menu.compare.notEqual": "≠"
 }

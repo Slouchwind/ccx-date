@@ -2,10 +2,10 @@
     "slouchwind.date.name": "岁月",
     "slouchwind.date.description": "叱咤风云，改写岁月",
     "slouchwind.date.category": "岁月",
-    "slouchwind.date.new": "化 [VALUE] 为岁月",
+    "slouchwind.date.new": "化 [DATE] 为岁月",
     "slouchwind.date.parse": "诞生之日午夜至 [VALUE] 之岁月的缩影",
     "slouchwind.date.UTC": "世界之岁月诞生之日至 [VALUE] 之岁月的缩影",
-    "slouchwind.date.get": "询问岁月守护神 [VALUE] 而得到 [PARAMETER]",
+    "slouchwind.date.get": "询问岁月守护神 [DATE] 而得到 [METHOD]",
     "slouchwind.date.menu.get.FullYear": "芳龄",
     "slouchwind.date.menu.get.Month": "岁月之月 (0 ~ 11)",
     "slouchwind.date.menu.get.Date": "岁月之日 (1 ~ 31)",
@@ -41,6 +41,8 @@
     "slouchwind.date.compare": "[DATE1] [SYMBOL] [DATE2]?",
     "slouchwind.date.menu.compare.greater": ">",
     "slouchwind.date.menu.compare.less": "<",
-    "slouchwind.date.menu.compare.equalAndGreater": "≥",
-    "slouchwind.date.menu.compare.equalAndLess": "≤"
+    "slouchwind.date.menu.compare.equal": "=",
+    "slouchwind.date.menu.compare.equalOrGreater": "≥",
+    "slouchwind.date.menu.compare.equalOrLess": "≤",
+    "slouchwind.date.menu.compare.notEqual": "≠"
 }

@@ -1,33 +1,10 @@
 const { Extension, type, api } = require('clipcc-extension');
-
-const get = {
-    MenuItemPrototype: v => { return { messageId: `slouchwind.date.menu.get.${v}`, value: v } },
-    DateGets: (method, value) => new Date(value)[`get${method}`]()
-}
-const set = {
-    MenuItemPrototype: v => { return { messageId: `slouchwind.date.menu.set.${v}`, value: v } },
-    DateSets: (method, date, value) => {
-        var d = new Date(date);
-        d[`set${method}`](value);
-        return dateToReturnString(d);
-    }
-}
-
-const string = {
-    MenuItemPrototype: v => { return { messageId: `slouchwind.date.menu.string.${v}`, value: v } },
-    DateStrings: (method, date) => new Date(date)[`to${method == 'index' ? '' : method}String`]()
-}
-
-function dateToReturnString(d = new Date()) {
-    switch (api.getSettings("slouchwind.date.return")) {
-        case "ISO": return d.toISOString()
-        case "time": return d.getTime()
-        case "GMT": return d.toString()
-    }
-}
+const { set, get, string, dateToReturnString, dateDefualt } = require("./method");
 
 class DateExtension extends Extension {
     onInit() {
+        api.removeCategory('slouchwind.date.category');
+
         api.addCategory({
             categoryId: 'slouchwind.date.category',
             messageId: 'slouchwind.date.category',
@@ -40,15 +17,30 @@ class DateExtension extends Extension {
             messageId: 'slouchwind.date.new',
             categoryId: 'slouchwind.date.category',
             param: {
-                VALUE: {
+                DATE: {
                     type: type.ParameterType.STRING,
                     default: "0"
                 }
             },
             function: args => {
                 try {
-                    if (args.VALUE == "") return dateToReturnString(new Date());
-                    else return dateToReturnString(new Date(args.VALUE));
+                    if (args.DATE == "") return dateToReturnString(new Date());
+                    else if (args.DATE.includes(',')) {
+                        var split = args.DATE.split(',').map(v => Number(v));
+                        console.log(split);
+                        return dateToReturnString(new Date(
+                            split[0] || 2000,
+                            split[1] || 0,
+                            split[2] || 0,
+                            split[3] || 0,
+                            split[4] || 0,
+                            split[5] || 0,
+                            split[6] || 0
+                        ));
+                    }
+                    else {
+                        return dateToReturnString(new Date(args.DATE));
+                    }
                 }
                 catch (e) {
                     console.log(e);
@@ -64,7 +56,7 @@ class DateExtension extends Extension {
             param: {
                 VALUE: {
                     type: type.ParameterType.STRING,
-                    default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
+                    default: dateDefualt.Zero
                 }
             },
             function: args => {
@@ -90,8 +82,16 @@ class DateExtension extends Extension {
             },
             function: args => {
                 try {
-                    var split = args.VALUE.split(",");
-                    return Date.UTC(split[0] || 2000, split[1] || 0, split[2] || 1, split[3] || 0, split[4] || 0, split[5] || 0, split[6] || 0);
+                    var split = args.VALUE.split(',');
+                    return Date.UTC(
+                        split[0] || 2000,
+                        split[1] || 0,
+                        split[2] || 1,
+                        split[3] || 0,
+                        split[4] || 0,
+                        split[5] || 0,
+                        split[6] || 0
+                    );
                 }
                 catch (e) {
                     console.log(e);
@@ -106,11 +106,11 @@ class DateExtension extends Extension {
             messageId: 'slouchwind.date.get',
             categoryId: 'slouchwind.date.category',
             param: {
-                VALUE: {
+                DATE: {
                     type: type.ParameterType.STRING,
-                    default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
+                    default: dateDefualt.Zero
                 },
-                PARAMETER: {
+                METHOD: {
                     type: type.ParameterType.STRING,
                     default: getMethods[0],
                     field: true,
@@ -119,7 +119,7 @@ class DateExtension extends Extension {
             },
             function: args => {
                 try {
-                    return get.DateGets(args.PARAMETER, args.VALUE)
+                    return get.DateGets(args.METHOD, args.DATE)
                 }
                 catch (e) {
                     console.log(e);
@@ -136,7 +136,7 @@ class DateExtension extends Extension {
             param: {
                 DATE: {
                     type: type.ParameterType.STRING,
-                    default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
+                    default: dateDefualt.Zero
                 },
                 VALUE: {
                     type: type.ParameterType.NUMBER,
@@ -168,7 +168,7 @@ class DateExtension extends Extension {
             param: {
                 DATE: {
                     type: type.ParameterType.STRING,
-                    default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
+                    default: dateDefualt.Zero
                 },
                 PARAMETER: {
                     type: type.ParameterType.STRING,
@@ -213,11 +213,11 @@ class DateExtension extends Extension {
             param: {
                 DATE1: {
                     type: type.ParameterType.STRING,
-                    default: 'Thu Jan 01 1970 08:00:00 GMT+0800 (中国标准时间)'
+                    default: dateDefualt.Zero
                 },
                 DATE2: {
                     type: type.ParameterType.STRING,
-                    default: 'Thu Jan 01 2000 08:00:00 GMT+0800 (中国标准时间)'
+                    default: dateDefualt.Two
                 },
                 SYMBOL: {
                     type: type.ParameterType.STRING,
@@ -226,8 +226,10 @@ class DateExtension extends Extension {
                     menu: [
                         'greater',
                         'less',
-                        'equalAndGreater',
-                        'equalAndLess'
+                        'equalOrGreater',
+                        'equalOrLess',
+                        'equal',
+                        'notEqual'
                     ]
                         .map(v => { return { messageId: `slouchwind.date.menu.compare.${v}`, value: v } })
                 }
@@ -239,8 +241,10 @@ class DateExtension extends Extension {
                     switch (args.SYMBOL) {
                         case 'greater': return d1 > d2;
                         case 'less': return d1 < d2;
-                        case 'equalAndGreater': return (d1 > d2) && (d1 == d2);
-                        case 'equalAndLess': return (d1 < d2) && (d1 == d2);
+                        case 'equalOrGreater': return d1 >= d2;
+                        case 'equalOrLess': return d1 <= d2;
+                        case 'equal': return d1.getTime() == d2.getTime();
+                        case 'notEqual': return d1.getTime() != d2.getTime();
 
                         default: return false;
                     }
@@ -248,10 +252,11 @@ class DateExtension extends Extension {
                     console.log(e);
                 }
             }
-        })
+        });
     }
+
     onUninit() {
-        api.removeCategory('slouchwind.date.category')
+        api.removeCategory('slouchwind.date.category');
     }
 }
 
