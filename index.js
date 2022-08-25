@@ -3,7 +3,9 @@ const { set, get, string, dateToReturnString, dateDefualt } = require("./method"
 
 class DateExtension extends Extension {
     onInit() {
-        api.removeCategory('slouchwind.date.category');
+        try {
+            api.removeCategory('slouchwind.date.category');
+        } catch { }
 
         api.addCategory({
             categoryId: 'slouchwind.date.category',
