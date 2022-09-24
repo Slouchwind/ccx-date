@@ -20,11 +20,11 @@ class DateExtension extends Extension {
                     default: "0"
                 }
             },
-            function: args => {
+            function: ({DATE}) => {
                 try {
-                    if (args.DATE == "") return dateToReturnString(new Date());
-                    else if (args.DATE.includes(',')) {
-                        var split = args.DATE.split(',').map(v => Number(v));
+                    if (DATE == "") return dateToReturnString(new Date());
+                    else if (DATE.includes(',')) {
+                        var split = DATE.split(',').map(v => Number(v));
                         console.log(split);
                         return dateToReturnString(new Date(
                             split[0] || 2000,
@@ -37,11 +37,11 @@ class DateExtension extends Extension {
                         ));
                     }
                     else {
-                        return dateToReturnString(new Date(args.DATE));
+                        return dateToReturnString(new Date(DATE));
                     }
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -62,7 +62,7 @@ class DateExtension extends Extension {
                     return Date.parse(new Date(args.VALUE))
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -92,7 +92,7 @@ class DateExtension extends Extension {
                     );
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -120,7 +120,7 @@ class DateExtension extends Extension {
                     return get.DateGets(args.METHOD, args.DATE)
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -152,7 +152,7 @@ class DateExtension extends Extension {
                     return set.DateSets(args.PARAMETER, args.DATE, args.VALUE)
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -180,7 +180,7 @@ class DateExtension extends Extension {
                     return string.DateStrings(args.PARAMETER, args.DATE)
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -198,7 +198,7 @@ class DateExtension extends Extension {
                     return new Date().getTimezoneOffset()
                 }
                 catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
@@ -247,7 +247,7 @@ class DateExtension extends Extension {
                         default: return false;
                     }
                 } catch (e) {
-                    console.log(e);
+                    return e.message;
                 }
             }
         });
