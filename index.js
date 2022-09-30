@@ -20,7 +20,7 @@ class DateExtension extends Extension {
                     default: "0"
                 }
             },
-            function: ({DATE}) => {
+            function: ({ DATE }) => {
                 try {
                     if (DATE == "") return dateToReturnString(new Date());
                     else if (DATE.includes(',')) {
@@ -57,9 +57,9 @@ class DateExtension extends Extension {
                     default: dateDefualt.Zero
                 }
             },
-            function: args => {
+            function: ({ VALUE }) => {
                 try {
-                    return Date.parse(new Date(args.VALUE))
+                    return Date.parse(VALUE)
                 }
                 catch (e) {
                     return e.message;
@@ -78,9 +78,9 @@ class DateExtension extends Extension {
                     default: '2000'
                 }
             },
-            function: args => {
+            function: ({ VALUE }) => {
                 try {
-                    var split = args.VALUE.split(',');
+                    var split = VALUE.split(',');
                     return Date.UTC(
                         split[0] || 2000,
                         split[1] || 0,
@@ -115,9 +115,9 @@ class DateExtension extends Extension {
                     menu: getMethods.map(get.MenuItemPrototype)
                 }
             },
-            function: args => {
+            function: ({ DATE, METHOD }) => {
                 try {
-                    return get.DateGets(args.METHOD, args.DATE)
+                    return get.DateGets(METHOD, DATE)
                 }
                 catch (e) {
                     return e.message;
@@ -140,16 +140,16 @@ class DateExtension extends Extension {
                     type: type.ParameterType.NUMBER,
                     default: '0'
                 },
-                PARAMETER: {
+                METHOD: {
                     type: type.ParameterType.STRING,
                     default: setMethods[0],
                     field: true,
                     menu: setMethods.map(set.MenuItemPrototype)
                 }
             },
-            function: args => {
+            function: ({ DATE, VALUE, METHOD }) => {
                 try {
-                    return set.DateSets(args.PARAMETER, args.DATE, args.VALUE)
+                    return set.DateSets(METHOD, DATE, VALUE)
                 }
                 catch (e) {
                     return e.message;
@@ -168,16 +168,16 @@ class DateExtension extends Extension {
                     type: type.ParameterType.STRING,
                     default: dateDefualt.Zero
                 },
-                PARAMETER: {
+                METHOD: {
                     type: type.ParameterType.STRING,
                     default: stringMethods[0],
                     field: true,
                     menu: stringMethods.map(string.MenuItemPrototype)
                 }
             },
-            function: args => {
+            function: ({ DATE, METHOD }) => {
                 try {
-                    return string.DateStrings(args.PARAMETER, args.DATE)
+                    return string.DateStrings(METHOD, DATE)
                 }
                 catch (e) {
                     return e.message;
@@ -232,11 +232,11 @@ class DateExtension extends Extension {
                         .map(v => { return { messageId: `slouchwind.date.menu.compare.${v}`, value: v } })
                 }
             },
-            function: args => {
+            function: ({ DATE1, DATE2, SYMBOL }) => {
                 try {
-                    var d1 = args.DATE1 === '' ? new Date() : new Date(args.DATE1);
-                    var d2 = args.DATE2 === '' ? new Date() : new Date(args.DATE2);
-                    switch (args.SYMBOL) {
+                    var d1 = DATE1 === '' ? new Date() : new Date(DATE1);
+                    var d2 = DATE2 === '' ? new Date() : new Date(DATE2);
+                    switch (SYMBOL) {
                         case 'greater': return d1 > d2;
                         case 'less': return d1 < d2;
                         case 'equalOrGreater': return d1 >= d2;
