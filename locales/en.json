@@ -44,5 +44,11 @@
     "slouchwind.date.menu.compare.equal": "=",
     "slouchwind.date.menu.compare.equalOrGreater": "≥",
     "slouchwind.date.menu.compare.equalOrLess": "≤",
-    "slouchwind.date.menu.compare.notEqual": "≠"
+    "slouchwind.date.menu.compare.notEqual": "≠",
+    "slouchwind.dayjs.category": "DayJs",
+    "slouchwind.dayjs.new": "dayjs [VALUE]",
+    "slouchwind.dayjs.i18n": "Use [I18N] language globally",
+    "slouchwind.dayjs.menu.i18n.en": "en",
+    "slouchwind.dayjs.menu.i18n.zh-cn": "zh-cn",
+    "slouchwind.dayjs.format": "Format [VALUE] according to [FORMAT]"
 }

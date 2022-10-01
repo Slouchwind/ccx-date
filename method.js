@@ -1,4 +1,4 @@
-const { api } = require("clipcc-extension");
+const { api } = require('clipcc-extension');
 
 exports.get = {
     MenuItemPrototype: v => { return { messageId: `slouchwind.date.menu.get.${v}`, value: v } },
@@ -20,10 +20,10 @@ exports.string = {
 }
 
 function dateToReturnString(d = new Date()) {
-    switch (api.getSettings("slouchwind.date.return")) {
-        case "ISO": return d.toISOString()
-        case "time": return d.getTime()
-        case "GMT": return d.toString()
+    switch (api.getSettings('slouchwind.date.return')) {
+        case 'ISO': return d.toISOString()
+        case 'time': return d.getTime()
+        case 'GMT': return d.toString()
     }
 }
 exports.dateToReturnString = dateToReturnString
@@ -32,3 +32,5 @@ exports.dateDefualt = {
     Zero: '1970-01-01T00:00:00.000Z',
     Two: '2000-01-01T00:00:00.000Z'
 }
+
+exports.i18n = v => { return { messageId: `slouchwind.dayjs.menu.i18n.${v}`, value: `${v}` } }

@@ -1,5 +1,10 @@
 const { Extension, type, api } = require('clipcc-extension');
-const { set, get, string, dateToReturnString, dateDefualt } = require("./method");
+const { set, get, string, dateToReturnString, dateDefualt, i18n } = require('./method');
+const dayjs = require('dayjs');
+require('dayjs/locale/en');
+require('dayjs/locale/zh-cn');
+
+var ccxDayjsLocale = 'en';
 
 class DateExtension extends Extension {
     onInit() {
@@ -17,12 +22,12 @@ class DateExtension extends Extension {
             param: {
                 DATE: {
                     type: type.ParameterType.STRING,
-                    default: "0"
+                    default: '0'
                 }
             },
             function: ({ DATE }) => {
                 try {
-                    if (DATE == "") return dateToReturnString(new Date());
+                    if (DATE == '') return dateToReturnString(new Date());
                     else if (DATE.includes(',')) {
                         var split = DATE.split(',').map(v => Number(v));
                         console.log(split);
@@ -251,10 +256,85 @@ class DateExtension extends Extension {
                 }
             }
         });
+
+        api.addCategory({
+            categoryId: 'slouchwind.dayjs.category',
+            messageId: 'slouchwind.dayjs.category',
+            color: '#56CFBF'
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.new',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.dayjs.new',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                VALUE: {
+                    type: type.ParameterType.STRING,
+                    default: '0'
+                }
+            },
+            function: ({ VALUE }) => {
+                try {
+                    if (VALUE == '') return dayjs().locale(ccxDayjsLocale).toString()
+                    else return dayjs(VALUE).locale(ccxDayjsLocale).toString();
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
+
+        var i18ns = ['en', 'zh-cn'];
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.i18n',
+            type: type.BlockType.COMMAND,
+            messageId: 'slouchwind.dayjs.i18n',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                I18N: {
+                    type: type.ParameterType.STRING,
+                    default: 'en',
+                    menu: i18ns.map(i18n)
+                }
+            },
+            function: ({ I18N }) => {
+                try {
+                    ccxDayjsLocale = I18N;
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.format',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.dayjs.format',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                VALUE: {
+                    type: type.ParameterType.STRING,
+                    default: '0'
+                },
+                FORMAT: {
+                    type: type.ParameterType.STRING,
+                    default: 'YYYY/MM/DD dddd'
+                }
+            },
+            function: ({ VALUE, FORMAT }) => {
+                try {
+                    if (VALUE == '') return dayjs().locale(ccxDayjsLocale).format(FORMAT)
+                    else return dayjs(VALUE).locale(ccxDayjsLocale).format(FORMAT);
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
     }
 
     onUninit() {
         api.removeCategory('slouchwind.date.category');
+        api.removeCategory('slouchwind.dayjs.category');
     }
 }
 

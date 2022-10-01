@@ -7,7 +7,8 @@
         "build:dist": "NODE_ENV=production npm run build"
     },
     "dependencies": {
-        "clipcc-extension": "^0.1.9"
+        "clipcc-extension": "^0.1.9",
+        "dayjs": "^1.11.5"
     },
     "devDependencies": {
         "copy-webpack-plugin": "^11.0.0",
