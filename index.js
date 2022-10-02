@@ -1,8 +1,7 @@
 const { Extension, type, api } = require('clipcc-extension');
-const { set, get, string, dateToReturnString, dateDefualt, i18n } = require('./method');
+const { set, get, string, dateToReturnString, dateDefualt, i18n, dayjsRequire, dayjsLocales } = require('./method');
 const dayjs = require('dayjs');
-require('dayjs/locale/en');
-require('dayjs/locale/zh-cn');
+dayjsRequire(dayjsLocales, []);
 
 var ccxDayjsLocale = 'en';
 
@@ -284,7 +283,6 @@ class DateExtension extends Extension {
             }
         });
 
-        var i18ns = ['en', 'zh-cn'];
         api.addBlock({
             opcode: 'slouchwind.dayjs.i18n',
             type: type.BlockType.COMMAND,
@@ -294,7 +292,7 @@ class DateExtension extends Extension {
                 I18N: {
                     type: type.ParameterType.STRING,
                     default: 'en',
-                    menu: i18ns.map(i18n)
+                    menu: dayjsLocales.map(i18n)
                 }
             },
             function: ({ I18N }) => {
