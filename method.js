@@ -34,8 +34,8 @@ exports.dateDefualt = {
 
 exports.i18n = v => { return { messageId: `slouchwind.dayjs.menu.i18n.${v}`, value: `${v}` } }
 
-exports.dayjsRequire = (locales = [], plugins = []) => {
-    locales.forEach(v => require(`dayjs/locale${v}`));
+exports.dayjsRequire = (locales = exports.dayjsLocales) => {
+    locales.forEach(v => require(`dayjs/locale/${v}`));
 }
 
 exports.dayjsLocales = [

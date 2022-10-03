@@ -1,7 +1,7 @@
 const { Extension, type, api } = require('clipcc-extension');
 const { set, get, string, dateToReturnString, dateDefualt, i18n, dayjsRequire, dayjsLocales } = require('./method');
 const dayjs = require('dayjs');
-dayjsRequire(dayjsLocales, []);
+dayjsRequire(dayjsLocales, ['localizedFormat']);
 
 var ccxDayjsLocale = 'en';
 
@@ -316,7 +316,7 @@ class DateExtension extends Extension {
                 },
                 FORMAT: {
                     type: type.ParameterType.STRING,
-                    default: 'YYYY/MM/DD dddd'
+                    default: 'YYYY/MM/DD hh:mm:ss.SSS'
                 }
             },
             function: ({ VALUE, FORMAT }) => {
