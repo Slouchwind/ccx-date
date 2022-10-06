@@ -275,8 +275,8 @@ class DateExtension extends Extension {
             },
             function: ({ VALUE }) => {
                 try {
-                    if (VALUE == '') return dayjs().locale(ccxDayjsLocale).toString()
-                    else return dayjs(VALUE).locale(ccxDayjsLocale).toString();
+                    if (VALUE == '') return dayjs().locale(ccxDayjsLocale).toISOString()
+                    else return dayjs(VALUE).locale(ccxDayjsLocale).toISOString();
                 } catch (e) {
                     return e.message;
                 }
@@ -316,7 +316,7 @@ class DateExtension extends Extension {
                 },
                 FORMAT: {
                     type: type.ParameterType.STRING,
-                    default: 'YYYY/MM/DD hh:mm:ss.SSS'
+                    default: 'YYYY/MM/DD hh:mm:ss dddd'
                 }
             },
             function: ({ VALUE, FORMAT }) => {
