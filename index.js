@@ -28,17 +28,8 @@ class DateExtension extends Extension {
                 try {
                     if (DATE == '') return dateToReturnString(new Date());
                     else if (DATE.includes(',')) {
-                        var split = DATE.split(',').map(v => Number(v));
-                        console.log(split);
-                        return dateToReturnString(new Date(
-                            split[0] || 2000,
-                            split[1] || 0,
-                            split[2] || 0,
-                            split[3] || 0,
-                            split[4] || 0,
-                            split[5] || 0,
-                            split[6] || 0
-                        ));
+                        let split = DATE.split(',').map((v, i) => Number(v) || (i === 0 ? 2000 : 0));
+                        return dateToReturnString(new Date(...split));
                     }
                     else {
                         return dateToReturnString(new Date(DATE));

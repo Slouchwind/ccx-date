@@ -8,7 +8,7 @@ exports.get = {
 exports.set = {
     MenuItemPrototype: v => ({ messageId: `slouchwind.date.menu.set.${v}`, value: v }),
     DateSets: (method, date, value) => {
-        var d = new Date(date);
+        let d = new Date(date);
         d[`set${method}`](value);
         return dateToReturnString(d);
     }
