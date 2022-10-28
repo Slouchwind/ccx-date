@@ -1,7 +1,10 @@
 const { Extension, type, api } = require('clipcc-extension');
-const { set, get, string, dateToReturnString, dateDefualt, i18n, dayjsRequire, dayjsLocales } = require('./method');
+const { set, get, string, dateToReturnString, dateDefualt, i18n, dayjsRequire, dayjsLocales, suffixMenu, relativeMenu, addMenu } = require('./method');
 const dayjs = require('dayjs');
-dayjsRequire(dayjsLocales, ['localizedFormat']);
+dayjsRequire(dayjsLocales);
+
+dayjs.extend(require('dayjs/plugin/localizedFormat'));
+dayjs.extend(require('dayjs/plugin/relativeTime'));
 
 var ccxDayjsLocale = 'en';
 
@@ -314,6 +317,135 @@ class DateExtension extends Extension {
                 try {
                     if (VALUE == '') return dayjs().locale(ccxDayjsLocale).format(FORMAT)
                     else return dayjs(VALUE).locale(ccxDayjsLocale).format(FORMAT);
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.fromNow',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.dayjs.fromNow',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                VALUE: {
+                    type: type.ParameterType.STRING,
+                    default: '0'
+                },
+                SUFFIX: {
+                    type: type.ParameterType.STRING,
+                    default: 'with',
+                    field: true,
+                    menu: ['with', 'without'].map(suffixMenu)
+                }
+            },
+            function: ({ VALUE, SUFFIX }) => {
+                try {
+                    return dayjs(VALUE).locale(ccxDayjsLocale).fromNow(SUFFIX == 'without');
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.toNow',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.dayjs.toNow',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                VALUE: {
+                    type: type.ParameterType.STRING,
+                    default: '0'
+                },
+                SUFFIX: {
+                    type: type.ParameterType.STRING,
+                    default: 'with',
+                    field: true,
+                    menu: ['with', 'without'].map(suffixMenu)
+                }
+            },
+            function: ({ VALUE, SUFFIX }) => {
+                try {
+                    return dayjs(VALUE).locale(ccxDayjsLocale).toNow(SUFFIX == 'without');
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.relative',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.dayjs.relative',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                DAY1: {
+                    type: type.ParameterType.STRING,
+                    default: '1999-01-01'
+                },
+                DAY2: {
+                    type: type.ParameterType.STRING,
+                    default: '2000-01-01'
+                },
+                VALUE: {
+                    type: type.ParameterType.STRING,
+                    default: 'to',
+                    field: true,
+                    menu: ['to', 'from'].map(relativeMenu)
+                },
+                SUFFIX: {
+                    type: type.ParameterType.STRING,
+                    default: 'with',
+                    field: true,
+                    menu: ['with', 'without'].map(suffixMenu)
+                }
+            },
+            function: ({ DAY1, DAY2, VALUE, SUFFIX }) => {
+                try {
+                    return dayjs(DAY1).locale(ccxDayjsLocale)[VALUE](DAY2, SUFFIX == 'without');
+                } catch (e) {
+                    return e.message;
+                }
+            }
+        });
+
+        api.addBlock({
+            opcode: 'slouchwind.dayjs.add',
+            type: type.BlockType.REPORTER,
+            messageId: 'slouchwind.dayjs.add',
+            categoryId: 'slouchwind.dayjs.category',
+            param: {
+                DAY: {
+                    type: type.ParameterType.STRING,
+                    default: '1999-01-01'
+                },
+                VALUE: {
+                    type: type.ParameterType.STRING,
+                    default: '1',
+                },
+                UNIT: {
+                    type: type.ParameterType.STRING,
+                    default: 'day',
+                    field: true,
+                    menu: [
+                        'day',
+                        'week',
+                        'month',
+                        'quarter',
+                        'year',
+                        'hour',
+                        'minute',
+                        'second',
+                        'millisecond'
+                    ].map(addMenu)
+                }
+            },
+            function: ({ DAY, VALUE, UNIT }) => {
+                try {
+                    if (DAY === '') return dayjs().locale(ccxDayjsLocale).add(Number(VALUE), UNIT).toISOString();
+                    else return dayjs(DAY).locale(ccxDayjsLocale).add(Number(VALUE), UNIT).toISOString();
                 } catch (e) {
                     return e.message;
                 }

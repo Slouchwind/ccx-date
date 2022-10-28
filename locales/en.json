@@ -191,5 +191,22 @@
     "slouchwind.dayjs.menu.i18n.es-pr": "Spanish (Puerto Rico)",
     "slouchwind.dayjs.menu.i18n.es-mx": "Spanish (Mexico)",
     "slouchwind.dayjs.menu.i18n.es-us": "Spanish (United States)",
-    "slouchwind.dayjs.format": "Format [VALUE] according to [FORMAT]"
+    "slouchwind.dayjs.format": "Format [VALUE] according to [FORMAT]",
+    "slouchwind.dayjs.menu.suffix.with": "with",
+    "slouchwind.dayjs.menu.suffix.without": "without",
+    "slouchwind.dayjs.fromNow": "relative time of [VALUE] from now [SUFFIX] suffix",
+    "slouchwind.dayjs.toNow": "relative time of [VALUE] to now [SUFFIX] suffix",
+    "slouchwind.dayjs.menu.relative.to": "to",
+    "slouchwind.dayjs.menu.relative.from": "from",
+    "slouchwind.dayjs.relative": "relative time of [DAY1] [VALUE] [DAY2] [SUFFIX] suffix",
+    "slouchwind.dayjs.menu.add.day": "day",
+    "slouchwind.dayjs.menu.add.week": "week",
+    "slouchwind.dayjs.menu.add.month": "month",
+    "slouchwind.dayjs.menu.add.quarter": "quarter",
+    "slouchwind.dayjs.menu.add.year": "year",
+    "slouchwind.dayjs.menu.add.hour": "hour",
+    "slouchwind.dayjs.menu.add.minute": "minute",
+    "slouchwind.dayjs.menu.add.second": "second",
+    "slouchwind.dayjs.menu.add.millisecond": "millisecond",
+    "slouchwind.dayjs.add":"add [VALUE] [UNIT] to [DAY]"
 }

@@ -33,7 +33,7 @@ exports.dateDefualt = {
     Two: '2000-01-01T00:00:00.000Z'
 }
 
-exports.i18n = v => ({ messageId: `slouchwind.dayjs.menu.i18n.${v}`, value: `${v}` })
+exports.i18n = v => ({ messageId: `slouchwind.dayjs.menu.i18n.${v}`, value: v });
 
 exports.dayjsRequire = (locales = exports.dayjsLocales) => {
     locales.forEach(v => require(`dayjs/locale/${v}`));
@@ -183,4 +183,8 @@ exports.dayjsLocales = [
     "es-pr",
     "es-mx",
     "es-us"
-]
+];
+
+exports.suffixMenu = v => ({ messageId: `slouchwind.dayjs.menu.suffix.${v}`, value: v });
+exports.relativeMenu = v => ({ messageId: `slouchwind.dayjs.menu.relative.${v}`, value: v });
+exports.addMenu = v => ({ messageId: `slouchwind.dayjs.menu.add.${v}`, value: v });
